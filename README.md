@@ -1,6 +1,9 @@
 # Introduction 
-This App reads the JSON output of IPERF3 and will ingest it to log analytics workspace.
+This is the base for ARM Template and the Rig Deploy
 
-A workspace ID and sharedkey needs to be configured in appsettings.JSON
 
-Compile relative to the platform you wish to use
+NOTE!
+This is a single template to allow it to be subsequently used in BlueSteel
+
+Default Values are set 
+Passwords are used over SSH for ease
