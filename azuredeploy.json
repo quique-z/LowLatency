@@ -221,9 +221,7 @@
 
       ],
       "properties": {
-        "proximityPlacementGroup": {
-          "id": "[resourceId('Microsoft.Compute/proximityPlacementGroups',variables('ppgName'))]"
-        },
+
         "hardwareProfile": {
           "vmSize": "[parameters('virtualMachineSize')]"
         },
@@ -238,6 +236,9 @@
           },
           "customData": "[base64(variables('customData'))]"
 
+        },
+        "proximityPlacementGroup": {
+          "id": "[resourceId('Microsoft.Compute/proximityPlacementGroups',variables('ppgName'))]"
         },
         "storageProfile": {
           "imageReference": {
@@ -287,9 +288,7 @@
 
       ],
       "properties": {
-        "proximityPlacementGroup": {
-          "id": "[resourceId('Microsoft.Compute/proximityPlacementGroups',variables('ppgName'))]"
-        },
+
         "hardwareProfile": {
           "vmSize": "[parameters('virtualMachineSize')]"
         },
@@ -304,6 +303,9 @@
           },
           "customData": "[base64(variables('customData'))]"
 
+        },
+        "proximityPlacementGroup": {
+          "id": "[resourceId('Microsoft.Compute/proximityPlacementGroups',variables('ppgName'))]"
         },
         "storageProfile": {
           "imageReference": {
