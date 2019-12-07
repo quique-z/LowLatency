@@ -216,7 +216,8 @@
 
       "dependsOn": [
         "[resourceId('Microsoft.Storage/storageAccounts/', variables('storageAccountName'))]",
-        "[concat('Microsoft.Network/virtualNetworks/',parameters('networkName'))]"
+        "[concat('Microsoft.Network/virtualNetworks/',parameters('networkName'))]",
+        "[concat('Microsoft.Compute/proximityPlacementGroups/', variables('ppgName'))]"
 
       ],
       "properties": {
@@ -281,7 +282,8 @@
 
       "dependsOn": [
         "[resourceId('Microsoft.Storage/storageAccounts/', variables('storageAccountName'))]",
-        "[concat('Microsoft.Network/virtualNetworks/',parameters('networkName'))]"
+        "[concat('Microsoft.Network/virtualNetworks/',parameters('networkName'))]",
+        "[concat('Microsoft.Compute/proximityPlacementGroups/', variables('ppgName'))]"
 
       ],
       "properties": {
