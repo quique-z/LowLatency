@@ -94,7 +94,7 @@
     //cloud init run section
     "installiPerf": "\n- sudo wget https://iperf.fr/download/fedora/iperf3-3.1.3-1.fc24.x86_64.rpm\n- sudo rpm -i *.rpm",
     "installNc": "\n- sudo yum install nc -y",
-    "configFirewall": "\n- sudo firewall-cmd --zone=public --add-port=5201/tcp --permanent\n- sudo firewall-cmd --reload",
+    "configFirewall": "\n- sudo firewall-offline-cmd -p 5201:tcp\n- sudo kill -HUP firewalld",
     "createDirs": "\n- sudo mkdir /opt/tools",
     "downloadIngestTool": "\n- cd /opt/tools\n- sudo wget https://stageb15002ab66154dae8e2.blob.core.windows.net/lowlatency/ingestapp/publish.zip",
     "downloadperfScript": "\n- sudo wget https://stageb15002ab66154dae8e2.blob.core.windows.net/lowlatency/script/perfScript.sh\n- sudo chmod 755 /opt/tools/perfScript.sh",
