@@ -277,7 +277,7 @@
           "vmSize": "[parameters('virtualMachineSize')]"
         },
         "osProfile": {
-          "computerName": "[concat(variables('vmConfig').serverName)]",
+          "computerName": "[concat(variables('vmConfig').clientName)]",
           "adminUsername": "[parameters('adminUsername')]",
           "adminPassword": "[parameters('adminPassword')]",
           "linuxConfiguration": {
