@@ -57,7 +57,7 @@
       "apiVersions": {
         "nicApiVersion": "2017-06-01",
         "deploymentApiVersion": "2018-05-01",
-        "vmApiVersion": "2017-03-30",
+        "vmApiVersion": "2018-06-01",
         "publicIpApiVersion": "2017-11-01",
         "nsgApiVersion": "2018-11-01",
         "vnetApiVersion": "2016-03-30",
@@ -101,7 +101,7 @@
     "unzipIngestTool": "\n- sudo unzip -d /opt/tools publish.zip\n- sudo chmod 755 /opt/tools/publish/ReadIperf",
     //modify this if server then if client then just run
     "runTool": "\n- sudo ./perfScript.sh 10.0.0.4 5201 /opt/tools/output.json",
-    "runCmd": "[concat('\nruncmd:',variables('installiPerf'),variables('installNc'),variables('createDirs'),variables('downloadIngestTool'),variables('downloadperfScript'),variables('unzipIngestTool'),variables('runTool'))]",
+    "runCmd": "[concat('\nruncmd:',variables('installiPerf'),variables('installNc'),variables('configFirewall'),variables('createDirs'),variables('downloadIngestTool'),variables('downloadperfScript'),variables('unzipIngestTool'),variables('runTool'))]",
     "customData": "[concat(variables('cloud-config'), variables('repoupgrade'),variables('managedEtcHosts'),variables('runCmd'))]"
 
   },
