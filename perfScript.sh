@@ -17,7 +17,7 @@ if [ $HOSTNAME == 'client' ]; then
         echo 'Run IPERF CLIENT'
         printf "\033c"
         echo "Begin Test"
-        sudo iperf3 -c $HOST -J --logfile $LOGFILE
+        sudo iperf3 -u -c $HOST -J --logfile $LOGFILE
 		cd /opt/tools/publish
 		sudo ./ReadIperf $LOGFILE
 fi
