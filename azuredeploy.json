@@ -99,7 +99,28 @@
       "metadata": {
         "description": "Virtual Machine Size"
       }
-    }    
+    },                                  
+    "iperfRunTimeInMins": {
+      "type": "int",
+      "defaultValue": 10,
+      "metadata": {
+        "description": "Amount of time that Iperf runs for each time"
+      }
+    },                                  
+    "iperfCoolTimeInMins": {
+      "type": "int",
+      "defaultValue": 20,
+      "metadata": {
+        "description": "Amount of time that Iperf waits before running again"
+      }
+    },                                  
+    "iperfReps": {
+      "type": "int",
+      "defaultValue": 4,
+      "metadata": {
+        "description": "Amount of times that the Iperf run/cooldown cycle will run"
+      }
+    } 
   },
   "variables": {
     "deploymentConfig": {
@@ -138,15 +159,9 @@
     "cloud-config": "#cloud-config\n\n",
     "repoupgrade": "apt_update: false\napt_upgrade: false\n",
     "managedEtcHosts": "\nmanage_etc_hosts: true",
-    "installiPerf": "\n- sudo wget https://iperf.fr/download/fedora/iperf3-3.1.3-1.fc24.x86_64.rpm\n- sudo rpm -i *.rpm",
-    "installNc": "\n- sudo yum install nc -y",
-    "configFirewall": "\n- sudo firewall-offline-cmd -p 5201:tcp\n- sudo kill -HUP firewalld",
-    "createDirs": "\n- sudo mkdir /opt/tools",
-    "downloadIngestTool": "\n- cd /opt/tools\n- sudo wget https://stageb15002ab66154dae8e2.blob.core.windows.net/lowlatency/ingestapp/publish.zip",
-    "downloadperfScript": "\n- sudo wget https://stageb15002ab66154dae8e2.blob.core.windows.net/lowlatency/script/perfScript.sh\n- sudo chmod 755 /opt/tools/perfScript.sh",
-    "unzipIngestTool": "\n- sudo unzip -d /opt/tools publish.zip\n- sudo chmod 755 /opt/tools/publish/ReadIperf",
-    "runTool": "\n- sudo ./perfScript.sh 10.0.0.4 5201 /opt/tools/output.json",
-    "runCmd": "[concat('\nruncmd:',variables('installiPerf'),variables('installNc'),variables('configFirewall'),variables('createDirs'),variables('downloadIngestTool'),variables('downloadperfScript'),variables('unzipIngestTool'),variables('runTool'))]",
+    "downloadperfScript": "\n- sudo wget https://raw.githubusercontent.com/quique-z/LowLatency/master/setupScript.sh\n- sudo chmod 755 ./setupScript.sh",
+    "runTool": "\n- sudo ./perfScript.sh",
+    "runCmd": "[concat('\nruncmd:',variables('downloadperfScript'),variables('runTool'))]",
     "customData": "[concat(variables('cloud-config'), variables('repoupgrade'),variables('managedEtcHosts'),variables('runCmd'))]"
   },
   "resources": [
