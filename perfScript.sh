@@ -27,4 +27,3 @@ if [ $HOSTNAME == 'server' ]; then
         printf "\033c"
         iperf3 -s
 fi
-

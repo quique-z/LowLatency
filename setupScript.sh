@@ -27,5 +27,4 @@ sudo chmod 755 /opt/tools/perfScript.sh
 sudo chmod 755 /opt/tools/iperf3Daemon.sh
 sudo unzip -d /opt/tools publish.zip\n- sudo chmod 755 /opt/tools/publish/ReadIperf
 sudo ./perfScript.sh 10.0.0.4 5201 /opt/tools/output.json
-sudo chmod +777 /etc/rc.d/rc.local
-sudo echo '/opt/tools/iperf3Daemon.sh' >> /etc/rc.d/rc.local
+(crontab -l ; echo "* * * * * /opt/tools/iperf3Daemon.sh") 2>&1 | grep -v "no crontab" | sort | uniq | crontab -

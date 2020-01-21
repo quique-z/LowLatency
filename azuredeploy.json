@@ -159,8 +159,8 @@
     "cloud-config": "#cloud-config\n\n",
     "repoupgrade": "apt_update: false\napt_upgrade: false\n",
     "managedEtcHosts": "\nmanage_etc_hosts: true",
-    "downloadperfScript": "\n- sudo wget https://raw.githubusercontent.com/quique-z/LowLatency/master/setupScript.sh\n- sudo chmod 755 ./setupScript.sh",
-    "runTool": "\n- sudo ./perfScript.sh",
+    "downloadperfScript": "\n- sudo mkdir /opt/tools\n- cd /opt/tools/\n- sudo wget https://raw.githubusercontent.com/quique-z/LowLatency/master/setupScript.sh\n- sudo chmod 755 /opt/tools/setupScript.sh",
+    "runTool": "\n- sudo /opt/tools/setupScript.sh",
     "runCmd": "[concat('\nruncmd:',variables('downloadperfScript'),variables('runTool'))]",
     "customData": "[concat(variables('cloud-config'), variables('repoupgrade'),variables('managedEtcHosts'),variables('runCmd'))]"
   },
