@@ -21,7 +21,7 @@ sudo kill -HUP firewalld
 sudo mkdir /opt/tools
 cd /opt/tools
 sudo wget https://stageb15002ab66154dae8e2.blob.core.windows.net/lowlatency/ingestapp/publish.zip
-sudo git clone https://AZGlobal@dev.azure.com/AZGlobal/Azure%20Global%20CAT%20Engineering/_git/AGCE%20%E2%80%93%20Low%20Latency
+sudo git clone https://github.com/quique-z/LowLatency.git
 sudo wget https://stageb15002ab66154dae8e2.blob.core.windows.net/lowlatency/script/perfScript.sh
 sudo chmod 755 /opt/tools/perfScript.sh
 sudo chmod 755 /opt/tools/iperf3Daemon.sh
