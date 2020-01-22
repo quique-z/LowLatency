@@ -25,5 +25,5 @@ sudo unzip -d /opt/tools publish.zip\n- sudo chmod 755 /opt/tools/publish/ReadIp
 sudo git clone https://github.com/quique-z/LowLatency.git
 sudo chmod +x /opt/tools/LowLatency/perfScript.sh
 sudo chmod +x /opt/tools/LowLatency/iperfDaemon.sh
-sudo ./perfScript.sh 10.0.0.4 5201 /opt/tools/output.json
-echo $(sudo crontab -u msadmin -l ; echo '* * * * * /opt/tools/LowLatency/iperfDaemon.sh > /tmp/env.output') | crontab -
+sudo ./LowLatency/perfScript.sh 10.0.0.4 5201 /opt/tools/output.json
+echo $(sudo crontab -l ; echo '* * * * * /opt/tools/LowLatency/iperfDaemon.sh > /tmp/env.output') | crontab -
