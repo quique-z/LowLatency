@@ -1,7 +1,7 @@
 #!/bin/bash
-HOST="$1"
-PORT="$2"
-LOGFILE="$3"
+HOST=10.0.0.4 5201 
+PORT=5201
+LOGFILE="/opt/tools/output.json"
 HOSTNAME=$(hostname)
 
 if [ $HOSTNAME == 'client' ]; then

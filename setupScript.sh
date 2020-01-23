@@ -13,7 +13,7 @@ if [[ ! -z $YUM_CMD ]]; then
 elif [[ ! -z $APT_GET_CMD ]]; then
     sudo apt-get install $DEB_PACKAGE_NAME_GIT -y
     sud apt-get install $DEB_PACKAGE_NAME_IPERF -y
-    sudo yum install $DEB_PACKAGE_NAME_NC -y
+    sudo apt-get install $DEB_PACKAGE_NAME_NC -y
 fi
 
 sudo firewall-offline-cmd -p 5201:tcp
@@ -26,4 +26,4 @@ sudo chmod 755 /opt/tools/publish/ReadIperf
 sudo git clone https://github.com/quique-z/LowLatency.git
 sudo chmod +x /opt/tools/LowLatency/perfScript.sh
 sudo chmod +x /opt/tools/LowLatency/iperfDaemon.sh
-sudo crontab -l ; echo '* * * * * /opt/tools/LowLatency/iperfDaemon.sh > /tmp/env.output' | crontab -
+sudo crontab -u msadmin -l ; echo '* * * * * /opt/tools/LowLatency/iperfDaemon.sh > /tmp/env.output' | crontab -
