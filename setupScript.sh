@@ -21,9 +21,9 @@ sudo kill -HUP firewalld
 sudo mkdir /opt/tools
 cd /opt/tools
 sudo wget https://stageb15002ab66154dae8e2.blob.core.windows.net/lowlatency/ingestapp/publish.zip
-sudo unzip -d /opt/tools publish.zip\n- sudo chmod 755 /opt/tools/publish/ReadIperf
+sudo unzip -d /opt/tools publish.zip
+sudo chmod 755 /opt/tools/publish/ReadIperf
 sudo git clone https://github.com/quique-z/LowLatency.git
 sudo chmod +x /opt/tools/LowLatency/perfScript.sh
 sudo chmod +x /opt/tools/LowLatency/iperfDaemon.sh
-sudo ./LowLatency/perfScript.sh 10.0.0.4 5201 /opt/tools/output.json
 echo $(sudo crontab -l ; echo '* * * * * /opt/tools/LowLatency/iperfDaemon.sh > /tmp/env.output') | crontab -
