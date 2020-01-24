@@ -15,6 +15,7 @@ if [[ $HOSTNAME == client* ]]; then
     HAS_EXECUTED=$(ls /tmp/iperfTestDone | wc -l)
     if [ $HAS_EXECUTED == '0' ]    
     then
+        echo "Done" > /tmp/iperfTestDone
         IPERF_RUNTIME=`cat /tmp/iperfRunTime`
         IPERF_COOLDOWN=`cat /tmp/iperfCoolTime`
         IPERF_REPS=`cat /tmp/iperfReps`
@@ -40,12 +41,11 @@ if [[ $HOSTNAME == client* ]]; then
             else
                 sudo iperf3 -c $HOST -p $PORT -t $IPERF_RUNTIME -J --logfile "${LOGFILE}${ITERATOR}.json" 
             fi
-            cd /opt/tools/publish
-            sudo ./ReadIperf "${LOGFILE}${ITERATOR}.json" 
+            cd 
+            sudo /opt/tools/publish/ReadIperf "${LOGFILE}${ITERATOR}.json" 
             echo $i
             sleep $IPERF_COOLDOWN
             a=`expr $ITERATOR + 1`
         done
-        echo "Done" > /tmp/iperfTestDone
     fi
 fi
