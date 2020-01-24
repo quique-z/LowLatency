@@ -15,10 +15,10 @@ if [[ $HOSTNAME == client* ]]; then
     HAS_EXECUTED=$(ls /tmp/iperfTestDone | wc -l)
     if [ $HAS_EXECUTED == '0' ]    
     then
-        IPERF_RUNTIME = `cat /tmp/iperfRunTime`
-        IPERF_COOLDOWN = `cat /tmp/iperfCoolTime`
-        IPERF_REPS = `cat /tmp/iperfReps`
-        IPERF_PROTOCOL = `cat /tmp/iperfProtocol`
+        IPERF_RUNTIME=`cat /tmp/iperfRunTime`
+        IPERF_COOLDOWN=`cat /tmp/iperfCoolTime`
+        IPERF_REPS=`cat /tmp/iperfReps`
+        IPERF_PROTOCOL=`cat /tmp/iperfProtocol`
 
         while true; do
         ANS=$(nc -vn $HOST $PORT </dev/null; echo $?)
@@ -27,24 +27,24 @@ if [[ $HOSTNAME == client* ]]; then
              break
         fi
         done
-        
-        i=0
-        while [ $i -lt $IPERF_REPS ]
+
+        ITERATOR=0
+        while [ $ITERATOR -lt $IPERF_REPS ]
         do
-            echo 'Run IPERF CLIENT'
+            echo "Run IPERF CLIENT"
             printf "\033c"
             echo "Begin Test"
+            echo "Output file: ${LOGFILE}${ITERATOR}.json"
             if [ $IPERF_PROTOCOL == "UDP" ]; then
-                sudo iperf3 -u -c $HOST -p $PORT -J --logfile "${LOGFILE}${i}.json" -t $IPERF_RUNTIME
+                sudo iperf3 -u -c $HOST -p $PORT -t $IPERF_RUNTIME -J --logfile "${LOGFILE}${ITERATOR}.json" 
             else
-                sudo iperf3 -c $HOST -p $PORT -J --logfile "${LOGFILE}${i}.json" -t $IPERF_RUNTIME
+                sudo iperf3 -c $HOST -p $PORT -t $IPERF_RUNTIME -J --logfile "${LOGFILE}${ITERATOR}.json" 
             fi
             cd /opt/tools/publish
-            sudo ./ReadIperf $LOGFILE
-            echo "Iperf test done" > /tmp/iperfTestDone 
+            sudo ./ReadIperf "${LOGFILE}${ITERATOR}.json" 
             echo $i
             sleep $IPERF_COOLDOWN
-            a=`expr $i + 1`
+            a=`expr $ITERATOR + 1`
         done
         echo "Done" > /tmp/iperfTestDone
     fi

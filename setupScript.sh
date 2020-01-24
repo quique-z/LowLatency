@@ -16,7 +16,7 @@ elif [[ ! -z $APT_GET_CMD ]]; then
     sudo apt-get install $DEB_PACKAGE_NAME_NC -y
 fi
 
-sudo firewall-offline-cmd -p 5201:tcp
+sudo firewall-offline-cmd -p 5201
 sudo kill -HUP firewalld
 sudo mkdir /opt/tools
 cd /opt/tools
