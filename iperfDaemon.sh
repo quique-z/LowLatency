@@ -15,9 +15,9 @@ if [[ $HOSTNAME == client* ]]; then
     HAS_EXECUTED=$(ls /tmp/iperfTestDone | wc -l)
     if [ $HAS_EXECUTED == '0' ]    
     then
-        IPERF_RUNTIME = $(</tmp/iperfRunTime)
-        IPERF_COOLDOWN = $(</tmp/iperfCoolTime)
-        IPERF_REPS = $(</tmp/iperfReps)
+        IPERF_RUNTIME = `cat /tmp/iperfRunTime`
+        IPERF_COOLDOWN = `cat /tmp/iperfCoolTime`
+        IPERF_REPS = `cat /tmp/iperfReps`
 
         while true; do
         ANS=$(nc -vn $HOST $PORT </dev/null; echo $?)
@@ -35,11 +35,12 @@ if [[ $HOSTNAME == client* ]]; then
             echo 'Run IPERF CLIENT'
             printf "\033c"
             echo "Begin Test"
-            sudo iperf3 -u -c $HOST -J --logfile "${LOGFILE}${i}" -t $IPERF_RUNTIME
+            sudo iperf3 -u -c $HOST -p $PORT -J --logfile "${LOGFILE}${i}" -t $IPERF_RUNTIME
             cd /opt/tools/publish
             sudo ./ReadIperf $LOGFILE
             echo "Iperf test done" > /tmp/iperfTestDone 
             echo $i
+            sleep $IPERF_COOLDOWN
             a=`expr $i + 1`
         done
     fi
