@@ -41,8 +41,7 @@ if [[ $HOSTNAME == client* ]]; then
             else
                 sudo iperf3 -c $HOST -p $PORT -t $IPERF_RUNTIME -J --logfile "${LOGFILE}${ITERATOR}.json" 
             fi
-            cd 
-            sudo /opt/tools/publish/ReadIperf "${LOGFILE}${ITERATOR}.json" 
+            curl -vX POST -H "Content-Type: application/json" -H "x-functions-key: s3VugHYN/fHRa6v2b/B58GwMF2taESnqXLFDQKaLAURJYPFxX4QYPA==" https://llfunc.azurewebsites.net/api/InjectionManager?resourceGroupName=LL_Fixed_AccNet_NoPPG_CUS -d "@${LOGFILE}${ITERATOR}.json"
             echo $i
             sleep $IPERF_COOLDOWN
             a=`expr $ITERATOR + 1`
