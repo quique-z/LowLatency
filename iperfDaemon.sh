@@ -1,6 +1,6 @@
 HOST="10.0.0.4"
 PORT="5201"
-LOGFILE="/opt/tools/output.json"
+LOGFILE="/opt/tools/output"
 if [[ $HOSTNAME == server* ]]; then
     IPERF_COUNT=$(ps -aux | grep "iperf3" | wc -l)
     if [ $IPERF_COUNT == '1' ]
@@ -18,6 +18,7 @@ if [[ $HOSTNAME == client* ]]; then
         IPERF_RUNTIME = `cat /tmp/iperfRunTime`
         IPERF_COOLDOWN = `cat /tmp/iperfCoolTime`
         IPERF_REPS = `cat /tmp/iperfReps`
+        IPERF_PROTOCOL = `cat /tmp/iperfProtocol`
 
         while true; do
         ANS=$(nc -vn $HOST $PORT </dev/null; echo $?)
@@ -35,7 +36,11 @@ if [[ $HOSTNAME == client* ]]; then
             echo 'Run IPERF CLIENT'
             printf "\033c"
             echo "Begin Test"
-            sudo iperf3 -u -c $HOST -p $PORT -J --logfile "${LOGFILE}${i}" -t $IPERF_RUNTIME
+            if [ $IPERF_PROTOCOL == "UDP" ]; then
+                sudo iperf3 -u -c $HOST -p $PORT -J --logfile "${LOGFILE}${i}.json" -t $IPERF_RUNTIME
+            else
+                sudo iperf3 -c $HOST -p $PORT -J --logfile "${LOGFILE}${i}.json" -t $IPERF_RUNTIME
+            fi
             cd /opt/tools/publish
             sudo ./ReadIperf $LOGFILE
             echo "Iperf test done" > /tmp/iperfTestDone 
