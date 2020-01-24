@@ -27,9 +27,7 @@ if [[ $HOSTNAME == client* ]]; then
              break
         fi
         done
-
-        echo "$IPERF_RUNTIME" > /tmp/iperfRuntime2
-
+        
         i=0
         while [ $i -lt $IPERF_REPS ]
         do
@@ -48,5 +46,6 @@ if [[ $HOSTNAME == client* ]]; then
             sleep $IPERF_COOLDOWN
             a=`expr $i + 1`
         done
+        echo "Done" > /tmp/iperfTestDone
     fi
 fi
