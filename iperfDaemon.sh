@@ -28,6 +28,8 @@ if [[ $HOSTNAME == client* ]]; then
         fi
         done
 
+        echo "IPERF_RUNTIME" > /tmp/iperfRuntime2
+
         echo 'Run IPERF CLIENT'
         printf "\033c"
         echo "Begin Test"

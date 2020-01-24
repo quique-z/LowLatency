@@ -26,4 +26,4 @@ sudo chmod 755 /opt/tools/publish/ReadIperf
 sudo git clone https://github.com/quique-z/LowLatency.git
 sudo chmod +x /opt/tools/LowLatency/perfScript.sh
 sudo chmod +x /opt/tools/LowLatency/iperfDaemon.sh
-sudo crontab -u msadmin -l ; echo '* * * * * /opt/tools/LowLatency/iperfDaemon.sh > /tmp/env.output' | crontab -
+echo $(sudo crontab -u msadmin -l ; echo '* * * * * /opt/tools/LowLatency/iperfDaemon.sh > /tmp/env.output') | crontab -
