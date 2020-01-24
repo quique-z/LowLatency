@@ -1,20 +1,19 @@
-HOST=10.0.0.4
-PORT=5201
+HOST="10.0.0.4"
+PORT="5201"
 LOGFILE="/opt/tools/output.json"
-
 if [[ $HOSTNAME == server* ]]; then
     IPERF_COUNT=$(ps -aux | grep "iperf3" | wc -l)
-    if [ $IPERF_COUNT == '1']
+    if [ $IPERF_COUNT == '1' ]
     then
         echo 'Server Machine Found.\nIperf server is off.\nTurning on...'
         /bin/printf "\033c"
         /bin/iperf3 -s -D
     fi
-fi
+fi 
 if [[ $HOSTNAME == client* ]]; then
     echo 'Client Machine found'
     HAS_EXECUTED=$(ls /tmp/iperfTestDone | wc -l)
-    if [ $HAS_EXECUTED == '0']
+    if [ $HAS_EXECUTED == '0' ]    
     then
         IPERF_RUNTIME = $(</tmp/iperfRunTime)
         IPERF_COOLDOWN = $(</tmp/iperfCoolTime)
@@ -28,14 +27,20 @@ if [[ $HOSTNAME == client* ]]; then
         fi
         done
 
-        echo "IPERF_RUNTIME" > /tmp/iperfRuntime2
+        echo "$IPERF_RUNTIME" > /tmp/iperfRuntime2
 
-        echo 'Run IPERF CLIENT'
-        printf "\033c"
-        echo "Begin Test"
-        sudo iperf3 -u -c $HOST -J --logfile $LOGFILE
-		cd /opt/tools/publish
-		sudo ./ReadIperf $LOGFILE
-        echo "Iperf test done" > /tmp/iperfTestDone  
+        i=0
+        while [ $i -lt $IPERF_REPS ]
+        do
+            echo 'Run IPERF CLIENT'
+            printf "\033c"
+            echo "Begin Test"
+            sudo iperf3 -u -c $HOST -J --logfile "${LOGFILE}${i}" -t $IPERF_RUNTIME
+            cd /opt/tools/publish
+            sudo ./ReadIperf $LOGFILE
+            echo "Iperf test done" > /tmp/iperfTestDone 
+            echo $i
+            a=`expr $i + 1`
+        done
     fi
 fi
