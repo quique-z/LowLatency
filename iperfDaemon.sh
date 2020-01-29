@@ -20,6 +20,7 @@ if [[ $HOSTNAME == client* ]]; then
         IPERF_COOLDOWN=`cat /tmp/iperfCoolTime`
         IPERF_REPS=`cat /tmp/iperfReps`
         IPERF_PROTOCOL=`cat /tmp/iperfProtocol`
+        IPERF_TOS=`cat /tmp/iperfTOS`
 
         while true; do
         ANS=$(nc -vn $HOST $PORT </dev/null; echo $?)
@@ -36,11 +37,14 @@ if [[ $HOSTNAME == client* ]]; then
             printf "\033c"
             echo "Begin Test"
             echo "Output file: ${LOGFILE}${ITERATOR}.json"
+            IPERF_ARGS = ""
             if [ $IPERF_PROTOCOL == "UDP" ]; then
-                sudo iperf3 -u -c $HOST -p $PORT -t $IPERF_RUNTIME -J --logfile "${LOGFILE}${ITERATOR}.json" 
-            else
-                sudo iperf3 -c $HOST -p $PORT -t $IPERF_RUNTIME -J --logfile "${LOGFILE}${ITERATOR}.json" 
+                IPERF_ARGS = "${IPERF_ARGS} -u "
             fi
+            if [ $IPERF_TOS == "Minimize Delay" ]; then
+                IPERF_ARGS = "${IPERF_ARGS} -tos 0x10 "
+            fi            
+            sudo iperf3 $IPERF_ARGS -c $HOST -p $PORT -t $IPERF_RUNTIME -J --logfile "${LOGFILE}${ITERATOR}.json" 
             curl -vX POST -H "Content-Type: application/json" -H "x-functions-key: s3VugHYN/fHRa6v2b/B58GwMF2taESnqXLFDQKaLAURJYPFxX4QYPA==" https://llfunc.azurewebsites.net/api/InjectionManager?resourceGroupName=LL_Fixed_AccNet_NoPPG_CUS -d "@${LOGFILE}${ITERATOR}.json"
             echo $i
             sleep $IPERF_COOLDOWN

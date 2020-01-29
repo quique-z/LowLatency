@@ -103,6 +103,7 @@
     "iperfRunTimeInSecs": {
       "type": "int",
       "defaultValue": 10,
+      "minValue": 1,
       "metadata": {
         "description": "Amount of time that Iperf runs for each time"
       }
@@ -110,6 +111,7 @@
     "iperfCoolTimeInSecs": {
       "type": "int",
       "defaultValue": 20,
+      "minValue": 0,
       "metadata": {
         "description": "Amount of time that Iperf waits before running again"
       }
@@ -117,6 +119,7 @@
     "iperfReps": {
       "type": "int",
       "defaultValue": 4,
+      "minValue": 1,
       "metadata": {
         "description": "Amount of times that the Iperf run/cooldown cycle will run"
       }
@@ -130,6 +133,17 @@
             ],
       "metadata": {
         "description": "Which protocol to use"
+      }
+    },                                  
+    "iperfTOS": {
+      "type": "string",
+      "defaultValue": "Minimize Delay",
+      "allowedValues": [
+                "Minimize Delay",
+                "None"
+            ],
+      "metadata": {
+        "description": "TOS for sent packets."
       }
     }
   },
@@ -171,7 +185,7 @@
     "repoupgrade": "apt_update: false\napt_upgrade: false\n",
     "managedEtcHosts": "\nmanage_etc_hosts: true",
     "downloadperfScript": "\n- sudo mkdir /opt/tools\n- cd /opt/tools/\n- sudo wget https://raw.githubusercontent.com/quique-z/LowLatency/master/setupScript.sh\n- sudo chmod 755 /opt/tools/setupScript.sh \n- sudo /opt/tools/setupScript.sh",
-    "runTool": "[concat('\n- echo ', parameters('iperfRunTimeInSecs'), ' > /tmp/iperfRunTime', '\n- echo ', parameters('iperfCoolTimeInSecs'), ' > /tmp/iperfCoolTime', '\n- echo ', parameters('iperfReps'), ' > /tmp/iperfReps', '\n- echo ', parameters('iperfProtocol'), ' > /tmp/iperfProtocol')]",
+    "runTool": "[concat('\n- echo ', parameters('iperfRunTimeInSecs'), ' > /tmp/iperfRunTime', '\n- echo ', parameters('iperfCoolTimeInSecs'), ' > /tmp/iperfCoolTime', '\n- echo ', parameters('iperfReps'), ' > /tmp/iperfReps', '\n- echo ', parameters('iperfProtocol'), ' > /tmp/iperfProtocol', '\n- echo ', parameters('iperfTOS'), ' > /tmp/iperfTOS')]",
     "runCmd": "[concat('\nruncmd:',variables('downloadperfScript'),variables('runTool'))]",
     "customData": "[concat(variables('cloud-config'), variables('repoupgrade'),variables('managedEtcHosts'),variables('runCmd'))]"
   },
