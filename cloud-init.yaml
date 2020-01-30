@@ -1,0 +1,12 @@
+#cloud-config
+package_upgrade: true
+packages:
+    - iperf3
+    - tmux
+    - jq
+manage_etc_hosts: true
+runcmd:
+    - mkdir /opt/tools
+    - cd /opt/tools
+    - wget https://raw.githubusercontent.com/quique-z/LowLatency/master/perfScript.sh
+    - tmux new-session -d -s "latencytest" bash ./perfScript.sh

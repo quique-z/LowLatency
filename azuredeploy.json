@@ -103,7 +103,6 @@
     "iperfRunTimeInSecs": {
       "type": "int",
       "defaultValue": 10,
-      "minValue": 1,
       "metadata": {
         "description": "Amount of time that Iperf runs for each time"
       }
@@ -111,7 +110,6 @@
     "iperfCoolTimeInSecs": {
       "type": "int",
       "defaultValue": 20,
-      "minValue": 0,
       "metadata": {
         "description": "Amount of time that Iperf waits before running again"
       }
@@ -119,7 +117,6 @@
     "iperfReps": {
       "type": "int",
       "defaultValue": 4,
-      "minValue": 1,
       "metadata": {
         "description": "Amount of times that the Iperf run/cooldown cycle will run"
       }
@@ -134,18 +131,7 @@
       "metadata": {
         "description": "Which protocol to use"
       }
-    },                                  
-    "iperfTOS": {
-      "type": "string",
-      "defaultValue": "Minimize Delay",
-      "allowedValues": [
-                "Minimize Delay",
-                "None"
-            ],
-      "metadata": {
-        "description": "TOS for sent packets."
-      }
-    }
+    }    
   },
   "variables": {
     "deploymentConfig": {
