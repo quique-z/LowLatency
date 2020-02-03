@@ -9,4 +9,5 @@ runcmd:
     - mkdir /opt/tools
     - cd /opt/tools
     - wget https://raw.githubusercontent.com/quique-z/LowLatency/master/perfScript.sh
+    - curl -o "#1" "https://nierfurtllbootstrap1.blob.core.windows.net/bootstrap/testscript.py?sp=rl&st=2020-01-24T23:00:00Z&se=2024-12-31T23:00:00Z&sv=2019-02-02&sr=c&sig=zMI2hdT50lE%2By%2Bz%2F0dONLNP3F9r9dXAEAQdL8T9PeY4%3D"
     - tmux new-session -d -s "latencytest" bash ./perfScript.sh
